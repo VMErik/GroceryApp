@@ -4,12 +4,13 @@ import 'package:groceriesapp/widgets/controls/button_action.dart';
 import 'package:groceriesapp/widgets/texts/onboarding_subtitle.dart';
 import 'package:groceriesapp/widgets/texts/onboarding_title.dart';
 
-class OnBoardingPage extends StatelessWidget {
-  const OnBoardingPage({super.key});
+class TestPage extends StatelessWidget {
+  const TestPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+
+    return Scaffold(
       body: Stack(
         children: [
           Positioned.fill(

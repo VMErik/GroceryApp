@@ -32,7 +32,11 @@ class ProductsPage extends StatelessWidget {
               children: [
                 Icon(Icons.filter_alt_outlined, size: 35,),
                 SizedBox(width: 15,),
-                Icon(Icons.shopping_cart, size: 35,)
+                GestureDetector(
+                  onTap: (){
+                    context.go('/cart');
+                  },
+                  child: Icon(Icons.shopping_cart, size: 35,))
               ],
             ),
           ),
