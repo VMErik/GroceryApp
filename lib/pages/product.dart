@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:groceriesapp/models/product_detail.dart';
 import 'package:groceriesapp/widgets/controls/button_action.dart';
 import 'package:groceriesapp/widgets/texts/subtitle_section.dart';
 import 'package:groceriesapp/widgets/texts/title_section.dart';
 
 class ProductPage extends StatelessWidget {
-  const ProductPage({super.key});
+  final ProductDetail product = ProductDetail(
+    imageUrl: 'assets/img/product.png',
+    name: 'Natural Red Apple',
+    presentation: '1KG Price',
+    qty: 10,
+    price: 16.50,
+    ranking: 4,
+    nutrition:
+        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets ',
+    productDetail:
+        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets ',
+    review:
+        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets ',
+    nutritions: '100gr',
+  );
+
+  ProductPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +34,7 @@ class ProductPage extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image(
-                    image: AssetImage('assets/img/product.png'),
+                    image: AssetImage(product.imageUrl),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -48,8 +64,8 @@ class ProductPage extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TitleSection(text: 'Natural Red Apple'),
-                          SubtitleSection(text: '1kg, Price', size: 16),
+                          TitleSection(text: product.name),
+                          SubtitleSection(text: product.presentation, size: 16),
                         ],
                       ),
                       Icon(
@@ -65,7 +81,7 @@ class ProductPage extends StatelessWidget {
                         onPressed: () {},
                         icon: Icon(Icons.remove, size: 32),
                       ),
-                      Text('1'),
+                      Text('${product.qty}'),
                       IconButton(
                         onPressed: () {},
                         icon: Icon(
@@ -76,7 +92,7 @@ class ProductPage extends StatelessWidget {
                       ),
                       Expanded(child: Container()),
                       Text(
-                        '\$160.50',
+                        '\$${product.price}',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -100,13 +116,13 @@ class ProductPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 20),
                         child: Text(
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets ',
-                            style: TextStyle(fontSize: 14, color: Colors.black54),
-                          ),
+                          product.productDetail,
+                          style: TextStyle(fontSize: 14, color: Colors.black54),
+                        ),
                       ),
                     ],
                   ),
-                   ExpansionTile(
+                  ExpansionTile(
                     tilePadding: EdgeInsets.all(0),
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,23 +138,26 @@ class ProductPage extends StatelessWidget {
                           padding: EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(5)
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          child: Text('100gr', style: TextStyle(fontSize: 10),),
-                        )
+                          child: Text(
+                            product.nutritions,
+                            style: TextStyle(fontSize: 10),
+                          ),
+                        ),
                       ],
                     ),
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(bottom: 20),
                         child: Text(
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets ',
-                            style: TextStyle(fontSize: 14, color: Colors.black54),
-                          ),
+                          product.nutrition,
+                          style: TextStyle(fontSize: 14, color: Colors.black54),
+                        ),
                       ),
                     ],
                   ),
-                   ExpansionTile(
+                  ExpansionTile(
                     tilePadding: EdgeInsets.all(0),
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -152,23 +171,26 @@ class ProductPage extends StatelessWidget {
                         ),
                         // Valoraciones
                         Row(
-                          children: [
-                            Icon(Icons.star, color: Colors.deepOrange,size: 20,),
-                            Icon(Icons.star, color: Colors.deepOrange,size: 20,),
-                            Icon(Icons.star, color: Colors.deepOrange,size: 20,),
-                            Icon(Icons.star, color: Colors.deepOrange,size: 20,),
-                            Icon(Icons.star, color: Colors.deepOrange,size: 20,)
-                          ],
-                        )
+                          children: List.generate(
+                            5, // Número total de estrellas posibles
+                            (index) => Icon(
+                              index < product.ranking
+                                  ? Icons.star
+                                  : Icons.star_border,
+                              color: Colors.deepOrange,
+                              size: 20,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(bottom: 20),
                         child: Text(
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets ',
-                            style: TextStyle(fontSize: 14, color: Colors.black54),
-                          ),
+                          product.review,
+                          style: TextStyle(fontSize: 14, color: Colors.black54),
+                        ),
                       ),
                     ],
                   ),
